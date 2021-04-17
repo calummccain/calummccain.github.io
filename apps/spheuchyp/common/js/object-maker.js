@@ -1,4 +1,4 @@
-import * as THREE from "../three-bits/three.module.js";
+import * as THREE from "../../../common/js/three-bits/three.module.js";
 import * as GM from "../geometries/geometry-maker.js";
 import * as EM from "../main/edge-maker.js";
 
