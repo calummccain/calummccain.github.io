@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Geodesics</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            background-color: mintcream;
+            color: darkslategray;
+            margin: auto;
+            padding: .5in;
+            max-width: 7in;
+            text-align: justify;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        a:link {
+            color: rgb(154, 155, 103);
+        }
+
+        a:visited {
+            color: rgb(161, 117, 104);
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover {
+            color: rgb(103, 130, 155);
+        }
+
+        a:active {
+            color: rgb(103, 155, 120);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hyperbolic Geodesics</h1>
+
+    <p>A typical exercise when working in with Riemann spaces is to find the geodesics. Geodesics are the shortest paths
+        between and are the analogues of straight lines that we're used to in everyday life. I'm going to skip a couple
+        of the meaty steps in deriving the tangent space definition for hyperbolic geodesics (possibly do later?) but
+        I'll pick things up from there.
+    </p>
+    <p>
+        \[\mathbf{r} = \cosh(\theta) \mathbf{u} + \sinh(\theta) \mathbf{v} \]
+    </p>
+    <p>
+        where \(\langle \mathbf{u}, \mathbf{u} \rangle = 1\), \(\langle \mathbf{u}, \mathbf{v} \rangle = 0\), \(\langle
+        \mathbf{v}, \mathbf{v} \rangle = -1\) and \(\theta \in (-\infty, \infty) \). This describes a geodesic through
+        \(\mathbf{u}\) in the direction \(\mathbf{v}\) which is in the tangent space of the hyperboloid at
+        \(\mathbf{u}\).
+    </p>
+
+    <p>
+        This is a nice result except that usually we have two points which we want our geodesic to pass through rather
+        than a point an a direction. So let's say that our geodesic passes through \(\mathbf{a}\) and \(\mathbf{b}\)
+        which are both on our hyperboloid; we now need to find the corresponding \(\mathbf{u}\) and \(\mathbf{v}\).
+        Firstly we can set \(\mathbf{u} = \mathbf{a}\) without too much trouble leaving us to find \(\mathbf{v}\) in
+        terms of \(\mathbf{a}\) and \(\mathbf{b}\). As the geodesic passes through \(\mathbf{b}\) for some value of
+        \(\theta\) we get:
+    </p>
+
+    <p>
+        \[\mathbf{b} = \cosh(\theta) \mathbf{a} + \sinh(\theta) \mathbf{v} \Rightarrow \mathbf{v} = \frac{\mathbf{b} -
+        \cosh(\theta) \mathbf{a}}{\sinh(\theta)}\]
+    </p>
+
+    <p>
+        Neat! We've found both \(\mathbf{u}\) and \(\mathbf{v}\) so we're done right? Let's just check that that the
+        inner
+        products are satisfied:
+    </p>
+
+    <p>
+        \[\langle \mathbf{u}, \mathbf{u} \rangle = \langle \mathbf{a}, \mathbf{a} \rangle = 1\]
+    </p>
+
+    <p>
+        \[
+        \begin{aligned}
+        \langle \mathbf{u}, \mathbf{v} \rangle &= \left \langle \mathbf{a}, \frac{\mathbf{b} - \cosh(\theta)
+        \mathbf{a}}{\sinh(\theta)} \right \rangle\\
+        &=\frac{1}{\sinh(\theta)}\langle \mathbf{a}, \mathbf{b} \rangle - \frac{\cosh(\theta)}{\sinh(\theta)}\langle
+        \mathbf{a}, \mathbf{a} \rangle\\
+        &=\frac{1}{\sinh(\theta)}\langle \mathbf{a}, \mathbf{b} \rangle - \frac{\cosh(\theta)}{\sinh(\theta)}\\
+        \end{aligned}
+        \]
+    </p>
+
+    <p>
+        Hang on, this doesn't equal 0... but have a trick up our sleeves though as we have a bit of flexibilty with
+        \(\theta\). By setting \(\cosh(\theta) = \langle \mathbf{a}, \mathbf{b} \rangle = \cosh(\alpha)\) i.e. \(\theta
+        = \alpha\) where \(\alpha\) is the hyperbolic distance between \(\mathbf{a}\) and \(\mathbf{b}\), we can get
+        \(\langle \mathbf{u}, \mathbf{v} \rangle = 0\)!
+    </p>
+
+    <p>
+        Finally we just need to check \(\langle \mathbf{v}, \mathbf{v} \rangle = -1 \):
+    </p>
+
+    <p>
+        \[
+        \begin{aligned}
+        \langle \mathbf{v}, \mathbf{v} \rangle &= \left \langle \frac{\mathbf{b} - \cosh(\alpha)
+        \mathbf{a}}{\sinh(\alpha)}, \frac{\mathbf{b} - \cosh(\alpha)
+        \mathbf{a}}{\sinh(\alpha)} \right \rangle\\
+        &= \frac{\langle \mathbf{b}, \mathbf{b} \rangle - 2 \cosh(\alpha)\langle \mathbf{a}, \mathbf{b} \rangle +
+        \cosh(\alpha)^2 \langle \mathbf{a}, \mathbf{a} \rangle}{\sinh(\alpha)^2}\\
+        &= \frac{1 - \cosh(\alpha)^2 + \sinh(\alpha)^2}{\sinh(\alpha)^2}\\
+
+        &= 0
+        \end{aligned}
+        \]
+    </p>
+
+    <p>
+        Noice!
+    </p>
+
+    <p>
+        Putting these together we get a general geodesic from \(\mathbf{a}\) to \(\mathbf{b}\) is:
+    </p>
+
+    <p>
+        \[
+        \begin{aligned}
+        \mathbf{r} &= \cosh(\theta) \mathbf{a} + \sinh(\theta) \frac{\mathbf{b} - \cosh(\alpha)
+        \mathbf{a}}{\sinh(\alpha)}\\
+        &= \frac{\cosh(\theta) \sinh(\alpha) \mathbf{a} + \sinh(\theta) \mathbf{b} - \sinh(\theta) \cosh(\alpha)
+        \mathbf{a}}{\sinh(\alpha)}\\
+        &= \frac{\sinh(\alpha - \theta) \mathbf{a} + \sinh(\theta) \mathbf{b}}{\sinh{\alpha}}
+        \end{aligned}
+        \]
+    </p>
+
+    <p>
+        A neat thing/check is to notice that if the points are close together (meaning \(\alpha\) is small) and
+        \(\theta\) is small then:
+    </p>
+
+    <p>
+        \[
+        \begin{aligned}
+        \mathbf{r} &= \frac{(\alpha - \theta) \mathbf{a} + \theta \mathbf{b}}{\alpha}\\
+        &= \left(1 - \frac{\theta}{\alpha} \right) \mathbf{a} + \frac{\theta}{\alpha} \mathbf{b} \\
+        &= (1 - \lambda) \mathbf{a} + \lambda \mathbf{b}
+        \end{aligned}
+        \]
+    </p>
+
+    <p>
+        Here we've set \(\frac{\theta}{\alpha} = \lambda\). This is the usual Euclidean equation for the straight line
+        between two points which is what we expect!
+    </p>
+</body>
+
+</html>

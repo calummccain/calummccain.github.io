@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../css/test.css">
+
+    <title>first page</title>
+</head>
+
+<body>
+
+    <a href="/root/index.html">index</a>
+
+    <script type="module">
+        import * as MAIN from "../js/main/24-cell-main.js";
+        MAIN.init(5, 1, [Math.floor(Math.random() * 24)], 1);
+        MAIN.render();
+    </script>
+
+</body>
+
+</html>

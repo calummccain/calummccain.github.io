@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <link rel="stylesheet" href="../css/test.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+            </script>
+        <script>
+            $(function () {
+                $("#side-menu").load("./menu-bars.html");
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            });
+        </script>
+
+        <title>2 camera test</title>
+    </head>
+
+    <body>
+
+        <div id="side-menu"></div>
+
+        <div id="view"></div>
+
+        <script type="module">
+            import { main } from "../js/main/main-2-camera.js";
+            import { cubeGeometry } from "../js/geometries/43n-geometry.js";
+            import * as DATA from "../js/data/43n.js";
+            function f(x) {
+                return DATA.f(5, x);
+            }
+            main("{4,3,5}", cubeGeometry, DATA.edges, DATA.vertices, f, DATA.faces);
+
+        </script>
+
+        <canvas id="testcanvas">
+
+        </canvas>
+    </body>
+
+</html>

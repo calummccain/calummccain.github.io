@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Space cases</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+            </script>
+        <link rel="stylesheet" href="../css/main-page.css">
+
+    </head>
+
+    <body>
+
+        <div class="text">
+
+            <p>
+                We want to solve look at the sign of the expression
+            </p>
+
+            <p>
+                $$
+                \Delta(p, q, r) = \sin\left(\frac{\pi}{p}\right)
+                \sin\left(\frac{\pi}{r}\right) - \cos\left(\frac{\pi}{q}\right)
+                $$
+            </p>
+
+            <p>
+                as \(p\), \(q\) and \(r\) vary.
+                This'll give us an idea of what space each honeycomb lives in.
+            </p>
+
+            <p>
+                \(\mathbb{S}^3\)
+            </p>
+
+            <p>
+                Firstly we can look at the spherical case - \(\mathbb{S}^3\). In this case we want \(\Delta(p, q, r) >
+                0\) i.e.
+            </p>
+
+            <p>
+                $$
+                \sin\left(\frac{\pi}{p}\right) \sin\left(\frac{\pi}{r}\right) \gt \cos\left(\frac{\pi}{q}\right)
+                $$
+            </p>
+
+            <p>
+                We can get some quick bounds for the LHS as it takes a maximum value of \(\frac{3}{4} =
+                \frac{\sqrt{3}}{2} \frac{\sqrt{3}}{2} \) for \(p = r = 3\)
+                (\(\sin(\pi/x)\) is decreasing. We can get a lower bound of \(\frac{1}{2}\) for
+                \(q=3\) as \(\cos(\pi/x)\) is an increasing function. Sumarising
+            </p>
+
+            <p>
+                $$
+                \begin{align}
+                \frac{1}{2} & \lt \sin\left(\frac{\pi}{p}\right) \sin\left(\frac{\pi}{r}\right) & \lt \frac{3}{4} \\
+                q = 3 & & p = r = 3 \\
+                & & q = \frac{\pi}{\arccos(\frac{3}{4})} \approx 4.34
+                \end{align}
+                $$
+            </p>
+
+            <p>
+                Therefore \(3 \leq q \leq 4.34\) which further gives \(q = 3\) or \(q = 4\). We can now solve
+                \(\Delta(p, q, r) >
+                0\) in each of these cases:
+            </p>
+
+            <p>
+                \(q = 3\)
+            </p>
+
+            <p>
+                For \(q = 3\) we want to solve
+            </p>
+
+            <p>
+                $$
+                \frac{1}{2} \lt \sin\left(\frac{\pi}{p}\right) \sin\left(\frac{\pi}{r}\right) \leq \frac{3}{4}
+                $$
+            </p>
+
+            <p>
+                This inequality gives \(p, r \lt 6\) as a bound. Testing each of the possibilities gives the solutions:
+            </p>
+
+            <p>
+                $$
+                \boxed{\{3,3,3\}, \{3,3,4\}, \{3,3,5\}, \{4,3,3\}, \{5,3,3\}}
+                $$
+            </p>
+
+            <p>
+                \(q = 4\)
+            </p>
+
+            <p>
+                For \(q = 4\) we want to solve
+            </p>
+
+            <p>
+                $$
+                \frac{1}{\sqrt{2}} \lt \sin\left(\frac{\pi}{p}\right) \sin\left(\frac{\pi}{r}\right) \leq \frac{3}{4}
+                $$
+            </p>
+
+            <p>
+                This inequality gives \(p, r \lt 4\) as a bound giving the solution:
+            </p>
+
+            <p>
+                $$
+                \boxed{\{3,4,3\}}
+                $$
+            </p>
+
+            <p>
+                \(\mathbb{E}^3\)
+            </p>
+
+            <p>
+                In the Euclidean case we want to solve \(\Delta(p, q, r) = 0\) which can be done in a similar fashion to
+                the spherical case. It turns out that we get the same inequalities but the only solution is
+            </p>
+
+            <p>
+                $$
+                \boxed{\{4,3,4\}}
+                $$
+            </p>
+
+            <p>
+                \(\mathbb{H}^3\)
+            </p>
+
+            <p>
+                Finally we want to solve \(\Delta(p, q, r) \le 0\). This encompasses all of the triples\(\{p,q,r\}\) not already mentioned.
+            </p>
+
+        </div>
+
+    </body>
+
+</html>

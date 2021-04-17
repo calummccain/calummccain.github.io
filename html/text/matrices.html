@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Recipe</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            background-color: mintcream;
+            color: darkslategray;
+            margin: auto;
+            padding: .5in;
+            max-width: 7in;
+            text-align: justify;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .view {
+            width: 5in;
+            height: 5in;
+            margin: auto;
+        }
+
+        a:link {
+            color: rgb(154, 155, 103);
+        }
+
+        a:visited {
+            color: rgb(161, 117, 104);
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover {
+            color: rgb(103, 130, 155);
+        }
+
+        a:active {
+            color: rgb(103, 155, 120);
+        }
+    </style>
+</head>
+
+<body>
+    <p>\[\{4, 3, 5\}\]
+        \[
+        a=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & -1
+        \end{pmatrix}
+        \]
+        \[
+        b=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & 1 & 0
+        \end{pmatrix}
+        \]
+        \[
+        c=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        d=\begin{pmatrix}
+        \phi & \frac{1}{\phi} & 0 & 0\\
+        \phi^2 & -\phi & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        e=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        f=\begin{pmatrix}
+        \frac{\phi^2}{\sqrt{2}} & 0 & 0 & 0\\
+        0 & \sqrt{\frac{\phi}{2}} & 0 & 0\\
+        0 & 0 & \sqrt{\frac{\phi}{2}} & 0\\
+        0 & 0 & 0 & \sqrt{\frac{\phi}{2}}
+        \end{pmatrix}
+        \]
+    </p>
+
+    <p>\[\{4, 3, 6\}\]
+
+        \[
+        a=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & -1
+        \end{pmatrix}
+        \]
+        \[
+        b=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & 1 & 0
+        \end{pmatrix}
+        \]
+        \[
+        c=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        d=\begin{pmatrix}
+        2 & -1 & 0 & 0\\
+        3 & -2 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        e=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        f=\begin{pmatrix}
+        \sqrt{3} & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+    </p>
+
+    <p>\[\{3, 5, 3\}\]
+
+        \[
+        a=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & -1
+        \end{pmatrix}
+        \]
+        \[
+        b=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & -1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        c=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & \frac{1}{2} & \frac{1}{2\phi} & -\frac{\phi}{2}\\
+        0 & \frac{1}{2\phi} & \frac{\phi}{2} & \frac{1}{2}\\
+        0 & -\frac{\phi}{2} & \frac{1}{2} & -\frac{1}{2\phi}
+        \end{pmatrix}
+        \]
+        \[
+        d=\begin{pmatrix}
+        \frac{\phi^4-1}{2} & 0 & -\frac{\phi^4-3}{2\phi} &
+        -\frac{\phi^4-3}{2\phi^3}\\
+        0 & 1 & 0 & 0\\
+        \frac{\phi^5}{2} & 0 & 1-\frac{\phi^4}{2} & -\frac{\phi^2}{2}\\
+        \frac{\phi^3}{2} & 0 & -\frac{\phi^2}{2} & \frac{1}{2}
+        \end{pmatrix}
+        \]
+        \[
+        e=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        f=\begin{pmatrix}
+        \frac{\phi^3}{2} & 0 & 0 & 0\\
+        0 & \sqrt{\frac{3\phi-1}{2}} & 0 & 0\\
+        0 & 0 & \sqrt{\frac{3\phi-1}{2}} & 0\\
+        0 & 0 & 0 & \sqrt{\frac{3\phi-1}{2}}
+        \end{pmatrix}
+        \]
+
+    </p>
+
+    <p>\[\{5, 3, 4\}\]
+        \[
+        a=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & -1
+        \end{pmatrix}
+        \]
+        \[
+        b=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & -1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        c=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & \frac{\phi}{2} & \frac{1}{2} & \frac{1}{2\phi}\\
+        0 & \frac{1}{2} & -\frac{1}{2\phi} & -\frac{\phi}{2}\\
+        0 & \frac{1}{2\phi} & -\frac{\phi}{2} & \frac{1}{2}
+        \end{pmatrix}
+        \]
+        \[
+        d=\begin{pmatrix}
+        \phi^2 & -1 & 0 & -1/\phi\\
+        \phi^3 & -\phi & 0 & -\phi\\
+        0 & 0 & 1 & 0\\
+        \phi^2 & -\phi & 0 & 0
+        \end{pmatrix}
+        \]
+        \[
+        e=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        f=\begin{pmatrix}
+        \frac{\phi^2}{\sqrt{2}} & 0 & 0 & 0\\
+        0 & \sqrt{\frac{\phi}{2}} & 0 & 0\\
+        0 & 0 & \sqrt{\frac{\phi}{2}} & 0\\
+        0 & 0 & 0 & \sqrt{\frac{\phi}{2}}
+        \end{pmatrix}
+        \]
+    </p>
+
+    <p>\[\{5, 3, 5\}\]
+        \[
+        a=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & -1
+        \end{pmatrix}
+        \]
+        \[
+        b=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & -1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        c=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & \frac{\phi}{2} & \frac{1}{2} & \frac{1}{2\phi}\\
+        0 & \frac{1}{2} & -\frac{1}{2\phi} & -\frac{\phi}{2}\\
+        0 & \frac{1}{2\phi} & -\frac{\phi}{2} & \frac{1}{2}
+        \end{pmatrix}
+        \]
+        \[
+        d=\begin{pmatrix}
+        \frac{4\phi+1}{2} & -\frac{4\phi-1}{2\phi} & 0 & -\frac{4\phi-1}{2\phi^2}\\
+        \frac{\phi^5}{2} & 1-\frac{\phi^4}{2} & 0 & -\frac{\phi^3}{2}\\
+        0 & 0 & 1 & 0\\
+        \frac{\phi^4}{2} & -\frac{\phi^3}{2} & 0 & 1-\frac{\phi^2}{2}
+        \end{pmatrix}
+        \]
+        \[
+        e=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        f=\begin{pmatrix}
+        \frac{\phi^4}{2} & 0 & 0 & 0\\
+        0 & \frac{\phi\sqrt{4\phi - 1}}{2} & 0 & 0\\
+        0 & 0 & \frac{\phi\sqrt{4\phi - 1}}{2} & 0\\
+        0 & 0 & 0 & \frac{\phi\sqrt{4\phi - 1}}{2}
+        \end{pmatrix}
+        \]
+    </p>
+
+    <p>\[\{5, 3, 6\}\]
+        \[
+        a=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & -1
+        \end{pmatrix}
+        \]
+        \[
+        b=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & -1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        c=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & \frac{\phi}{2} & \frac{1}{2} & \frac{1}{2\phi}\\
+        0 & \frac{1}{2} & -\frac{1}{2\phi} & -\frac{\phi}{2}\\
+        0 & \frac{1}{2\phi} & -\frac{\phi}{2} & \frac{1}{2}
+        \end{pmatrix}
+        \]
+        \[
+        d=\begin{pmatrix}
+        1+\frac{\phi^4}{2} & -\frac{\phi^3}{2} & 0 & -\frac{\phi^2}{2}\\
+        \frac{3\phi^3}{2} & 1-\frac{3\phi^2}{2} & 0 & -\frac{3\phi}{2}\\
+        0 & 0 & 1 & 0\\
+        \frac{3\phi^2}{2} & -\frac{3\phi}{2} & 0 & -\frac{1}{2}
+        \end{pmatrix}
+        \]
+        \[
+        e=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        f=\begin{pmatrix}
+        \sqrt{3} & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+    </p>
+
+    <p>\[\{3, 3, 6\}\]
+        \[
+        a=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        b=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & 1 & 0
+        \end{pmatrix}
+        \]
+        \[
+        c=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & -1\\
+        0 & 0 & -1 & 0
+        \end{pmatrix}
+        \]
+        \[
+        d=\begin{pmatrix}
+        \frac{5}{4} & -\frac{1}{4} & -\frac{1}{4} & \frac{1}{4}\\
+        \frac{3}{4} & \frac{1}{4} & -\frac{3}{4} & \frac{3}{4}\\
+        \frac{3}{4} & -\frac{3}{4} & \frac{1}{4} & \frac{3}{4}\\
+        -\frac{3}{4} & \frac{3}{4} & \frac{3}{4} & \frac{1}{4}
+        \end{pmatrix}
+        \]
+        \[
+        e=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        f=\begin{pmatrix}
+        \sqrt{3} & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+
+
+
+    </p>
+
+    <p>\[\{3, 4, 4\}\]
+        \[
+        a=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        b=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & 1 & 0
+        \end{pmatrix}
+        \]
+        \[
+        c=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & -1
+        \end{pmatrix}
+        \]
+        \[
+        d=\begin{pmatrix}
+        2 & -1 & -1  & -1\\
+        1 & 0 & -1 & -1\\
+        1 & -1 & 0 & -1\\
+        1 & -1 & -1 & 0\\
+        \end{pmatrix}
+        \]
+        \[
+        e=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+        \[
+        f=\begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1
+        \end{pmatrix}
+        \]
+
+
+
+    </p>
+
+
+
+</body>
+
+</html>

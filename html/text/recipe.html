@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>What's Going On?</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+            </script>
+        <script>
+            $(function () {
+                $("#side-menu").load("../menu-bars.html");
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            });
+        </script>
+
+        <link rel="stylesheet" href="../../css/test.css">
+
+    </head>
+
+    <body>
+
+        <div id="side-menu"></div>
+
+        <div class="text">
+
+            <h1>How to tesselate \(\mathbb{H}^3\)</h1>
+
+            
+
+            <p>In order two tesselate \(\mathbb{H}^3\) we need to calculate two things:</p>
+
+            <ol>
+                <li>What cell we're tesselating</li>
+                <li>How many of them fit around each edge</li>
+                <li>The size of the cells</li>
+                <li>The reflection matrices corresponding to the tesselation</li>
+            </ol>
+
+            <p>
+                Cell size is important because Hyperbolic spaces are fundamentally different to the usual Euclidean
+                space
+                that
+                we are used to. Essentially angles and lengths are much more dependent on each other; knowing the
+                angles
+                gives
+                you the lengths and knowing the lengths gives you the angles. These relations are encapsulated in
+                the
+                hyperbolic trig formulae (link) where you can find more info on why theres a difference.
+            </p>
+
+            <p>
+                The method we are using to calculate the vertices of our tessellation revolves around the fact that
+                hyperbolic
+                tessellation’s (and other tessellation’s in general) have a Coxeter group attached to them (link).
+                These
+                groups
+                have ‘nice’ geometric interpretations and their generators (link) can be explicitly calculated in
+                terms of
+                matrices. With these matrices, which end up being reflections, we can take one of our cells and
+                reflect it
+                to
+                fill up our space.
+            </p>
+
+            <p>
+                Probably the best way to follow this recipe is to use an example and the arguably simplest one to
+                look at is
+                the
+                order 5 cubic honeycomb with the Schläfi symbol \(\left\{4, 3, 5 \right\}\) (link). This is the
+                analogue of
+                the
+                usual way that
+                you’d pack cubes in a box - a bit like Tetris or boring lego, but instead of having 4 cubes around
+                each
+                edge, we
+                have 5. This is where our intuition breaks down a little as it’s quite clear that this isn’t
+                possible not
+                but in
+                Hyperbolic space we have more freedom with the angles so we should be ok.
+            </p>
+
+            <p>
+                ***** image of cubic tiling ********
+            </p>
+
+            <p>
+                The first step is to construct our fundamental tetrahedron (link). We are going to use a cell
+                centred model
+                (the
+                tessellation is symmetric about our origin \( \left(1, 0, 0, 0 \right)\) and there is a cell that
+                has the
+                origin
+                as it’s centre.
+                It’s worth mentioning that we are going to be using the hyperboloid model (link) as it has a nice
+                quadratic
+                form
+                - useful for later, and <a href="geodesic.html">geodesics</a> are easier to calculate. We can also
+                use some
+                little hacks because we
+                are using cubes, such as the coordinates of the vertices, edges and faces are easier to calculate.
+            </p>
+
+            <p>
+                In order to make some progress we need to know some of the angles in the tetrahedron. It turns out
+                that 4 of
+                the
+                12 are actually right angles. This can be seen by either the fact that it looks right or more
+                scientifically
+                you
+                can use the Coxeter diagram of the group:
+            </p>
+
+            <p>
+                4---3---5
+                V E F C
+            </p>
+
+            <p>
+                This says that the angles between the V F planes, V C planes and E C planes are all \(\pi/2\); the
+                angle
+                between the VE planes is \(\pi/4\); the angle between the EF planes is \(\pi/3\) and the angle
+                between the
+                FC
+                planes is
+                \(\pi/5\). The best way to represent this is by drawing a net of the tetrahedron. It’s worth
+                mentioning that
+                the
+                triangles are hyperbolic and so the angles don’t have to add up to pi.
+            </p>
+
+            <p>
+                ****** image of net of fundamental domain *******
+            </p>
+
+            <p>
+                We actually need one more angle however - FCE. We can’t directly read it from the coxeter diagram so
+                we will
+                use
+                a bit of geometry. In the Poincare model (link) of hyperbolic space the central cube is going to be
+                a
+                ‘scaled
+                down’ version of the usual Euclidean cube. I’ve put scaled in inverted commas as it’s not all scaled
+                down
+                by.
+                The same amount but long story short, we can let C prop (0, 0, 0), F prop (1, 0, 0), E prop (1, 1,
+                0), V
+                prop
+                (1, 1, 1). Using the standard euclidean inner product we find FCE is \(\pi/4\).
+            </p>
+
+            <p>
+                We have now all the angles that we need to calculate the hyperbolic distances between the points of
+                our
+                fundamental tetrahedron. Given all the right angles we are going to make use of the hyperbolic
+                right-angled
+                triangle formulas (link)
+            </p>
+
+            <p>\[\cosh(c) = \cosh(a) \cosh(b) = \cot(A) \cot(B)\]</p>
+
+            <p>
+                From this we find:
+            </p>
+
+            <p>\[\cosh(CE) = \cot\left(\frac{\pi}{4}\right)cot\left(\frac{\pi}{5}\right) =
+                \cot\left(\frac{\pi}{5}\right)\]
+            </p>
+
+            <p>
+                From this we can actually work out the coordinates of E in the hyperboloid model. Remember C(1, 0,
+                0, 0) and
+                cosh(CE) =
+            </p>
+
+            <p>
+                Therefore \(E \left( \cot \left( \frac{\pi}{5} \right), \frac{\sqrt{\cot \left( \frac{\pi}{5}
+                \right)^2 -
+                1}}{\sqrt{2}}, \frac{\sqrt{\cot \left( \frac{\pi}{5} \right)^2 - 1}}{\sqrt{2}}, 0 \right)\)
+            </p>
+
+            <p>
+                We have that the midpoint of the hyperbolic line between \(A\) and \(B\) is:
+            </p>
+
+            <p>\[\frac{A + B}{2\cosh\left(\frac{\alpha}{2}\right)}\]</p>
+
+            <p>
+                E is situated between \((a, b, b, b)\) and \((a, b, b, -b)\) where \(a\) and \(b\) are to be found.
+                Equating
+                the
+                coordinates we
+                find:
+            </p>
+
+            <p>\[\frac{a}{\cosh \left( \frac{\alpha}{2} \right)} = \cot \left( \frac{\pi}{5} \right)\]</p>
+            <p>\[\frac{b}{\cosh \left( \frac{\alpha}{2} \right)} = \frac{\sqrt{\cot \left( \frac{\pi}{5} \right)^2 -
+                1}}{\sqrt{2}}\]</p>
+
+            <p>
+                We also have \(a^2 - 3b^2 = 1\) as the vertices lie on our hyperboloid which we can arrange to get:
+            </p>
+
+            <p>\[\frac{1}{a^2} = 1 - 3\left(\frac{b}{a}\right)^2\]</p>
+            <p>\[\frac{1}{a^2} = 1 - 3 \frac {\cot \left ( \frac{\pi}{5} \right)^2 - 1} {2 \cot \left( \frac{\pi}{5}
+                \right)^2}\]</p>
+            <p>\[a^2 = \frac{2\cot \left ( \frac{\pi}{5} \right)^2}{3 - \cot \left ( \frac{\pi}{5} \right)^2}\]</p>
+            <p>\[b^2 = \frac{\cot \left ( \frac{\pi}{5} \right)^2 - 1}{3 - \cot \left ( \frac{\pi}{5} \right)^2}\]
+            </p>
+
+            <p>
+                These can be both evaluated in terms of the golden ratio \(\phi = (1 + \sqrt{5}) / 2\) (as is the
+                case with
+                most
+                of the honeycombs we are going to come across)
+            </p>
+
+            <p> \[\sin \left( \frac{\pi}{5} \right) = \frac{\sqrt{3 - \phi}}{2}\]</p>
+            <p> \[\cos \left( \frac{\pi}{5} \right) = \frac{\phi}{2}\]</p>
+            <p> \[\cot \left( \frac{\pi}{5} \right) = \sqrt{\frac{\phi^3}{\sqrt{5}}}\]</p>
+
+            <p> Using these we get:</p>
+
+            <p>\[a^2 =\frac{\phi^4}{2}\]</p>
+            <p>\[b^2 =\frac{\phi}{2}\]</p>
+
+            <p>
+                Using these values we can turn our quadratic form \[w^2 - x^2 - y^2 - z^2 = 1 \] to:
+                \[\frac{\phi^4}{2} w^2 - \frac{\phi}{2} \left(x^2 + y^2 + z^2\right) = 1\]
+                In fact we can write this as:
+                \[\phi^3 w^2 - \left(x^2 + y^2 + z^2\right) = \frac{2}{\phi}\]
+                which simplifies calculations later!
+            </p>
+
+            <p>
+                This makes our lives A LOT easier as instead of dealing with coordinates of the form \( \left(
+                \frac{\phi^2}{\sqrt{2}}, \sqrt{\frac{\phi}{2}}, \sqrt{\frac{\phi}{2}}, \sqrt{\frac{\phi}{2}}
+                \right)\) we
+                can
+                deal with coordinates looking like \((1, 1, 1, 1)\) (at least to begin with)
+            </p>
+
+            <p>
+                So we've got our quadratic form and the location of our vertices so what we need to do is calculate
+                the
+                reflection matrices to tesselate \(\mathbb{H}^3\). Since we are dealing with a fundamental
+                tetrahedron and
+                reflections happen across faces we are looking for 4 matrices. This also makes sense as the Coxeter
+                group
+                \(\{4,
+                3, 5\}\) has 4 generators and we are dealing with \(\mathbb{H}^3\)
+            </p>
+
+            <p>
+                First things first is to label up the coordinates of our fundamental domain. It turns out that we
+                can use
+                unscaled coordinates (\(\Phi \neq 1\)) as the reflection formula that we are going to use doesn't
+                require
+                normalisation.
+            </p>
+
+            <ol>
+                <li>\(V(1, 1, 1, 1)\)</li>
+                <li>\(E\) is the midpoint of \((1, 1, 1, 1)\) and \((1, 1, 1, -1)\) so by our midpoint formula \( E
+                    \propto
+                    (1,
+                    1, 1, 0)\)</li>
+                <li>\(F\) is the midpoint of \((1, 1, 1, 0)\) and \((1, 1, 0, 1)\) so by our midpoint formula \( F
+                    \propto
+                    (1,
+                    1, 0, 0)\)</li>
+                <li>\(C(1, 0, 0, 0)\)</li>
+            </ol>
+
+            <p>
+                Let's find some normals to use in the reflection formula (link). For each face we need to find the
+                vector
+                that
+                is perpendicular to the vectors for the face's vertices. (bit of a mouthful)
+            </p>
+
+        </div>
+
+        <div>
+            What's Going On?
+
+            Hopefully by now you'll have played around with a couple of the shapes and
+            you're probably wndering what they even are. Short answer is:
+
+            they're honeycombs.
+
+            So why don't they look like the cute little houses that bees make?
+
+            Let's start by seeing what makes a bee's honeycomb a honeycomb:
+
+            [IMAGE]
+
+            The honeycomb that bees make is the gold standard of symmetry. Made up of
+            repeating hexagonal chambers all of the same size and shape it's optimised for
+            the storing of honey and larvae. So how doe this fit in with the 3d shapes?
+            What we need do is to pick the key features of the bee's honeycomb,
+            express them in a bit of maths and then see how they generalise. From the image
+            above we can extract a couple of things:
+
+            1) It's made up of lots of repeating hexagons
+            2) The hexagons are all the same size and shape
+            3) The arrangement is neat - there's a lot of symmetry
+
+            We can now decide on which of these ideas we want to take with us and
+            generalise!
+
+            Idea 1: Using hexagons is completely fine but also quite restrictive - do other
+            shapes work?
+            Idea 2: The fact that none of the hexagons is 'special' is quite nice
+            (and fair!) - might be a good one to keep
+            Idea 3: Symmetry is kinda cool
+
+            So now we can build a question to investigate:
+
+            'What regular polygons tesselate the plane?'
+
+            Breaking this down:
+
+            regular = the shapes we are using all have the same angles and side lengths
+            polygons = the shapes have straight sides and don't intersect themselves [IMAGE]
+            tesselate = this word will come up quite a lot and is interchangeable with
+            honeycomb i.e. if the shape tesselates then it makes a honeycomb (aka a tesselation)
+            plane = we will focus our attention on the Euclidean plane first.
+            This basically means we can draw the honeycombs on a flat piece of paper
+            (if the paper was infinitely big...)
+
+            This question is really quite quick to answer and it turns out that there are only three solutions.
+
+            [IMAGE] [IMAGE] [IMAGE]
+
+            All three of these are rather well known from any maths/science/design notebook.
+            Alternatively the triangular tesselation is how you stack toblerones, the square one
+            is basically pixel-art, a chessboard, tetris etc... and the hexagon one is the bee's
+            honeycomb from earlier.
+
+            So why are there only 3?
+
+            When we make out tesselation we don't want there to be any spaces inbetween the polygons.
+            This means that around every point the angles need to add up to 360 (I'll switch to radians later)
+            So we need the solutions to:
+
+            360 = k * 180 * (1 - 2 / n)
+
+            2 = k * (1 - 2 / n)
+
+            2n = k (n - 2)
+
+            4 = (k - 2)(n - 2)
+
+            Therefore k - 2 = 4, n - 2 = 1
+            or k - 2 = 2, n - 2 = 2
+            or k - 2 = 1, n - 2 = 4
+            or k - 2 = -4, n - 2 = -1
+            or k - 2 = -2, n - 2 = -2
+            or k - 2 = -1, n - 2 = -4
+
+            Solving these gives (k, n) = (6, 3), (4, 4), (3, 6), (-2, 1), (0, 0), (1, -2)
+
+            We want positive integer solutions ie (k, n) = (6, 3), (4, 4), (3, 6)
+
+            These three solutions exactly correspond to the three plane tesselations:
+
+            (6, 3) = hexagonal
+            (4, 4) = square
+            (3, 6) = triangular
+
+            You might notice that these numbers are the same as those HERE, but we will see these again later!
+
+            What about 3d?
+
+            Moving into 3d things get a bit more tricky (predictably) and we need to change our question
+
+            So instead of 'What regular polygons tesselate the plane?' we need ask
+            'What regular polytopes tesselate 3d Euclidean Space?
+
+            Breaking this down again:
+
+            regular polytopes = Instead of using triangles/squares/hexagons we are using the 3d versions.
+            It turns out that there are only 5 shapes that we can use: tetrahedron,
+            cube, octahedron, dodecahedron, icosahedron. Again regular means that
+            all the edge lengths and angles are the same as each other
+            3d Euclidean space = This is the usual 3d world we live in with the x, y, z directions.
+
+            How many solutions are there then?
+
+            1....
+
+            Yeah there's only one. It's called the cubic honeycomb and is most commonly seen in Minecraft.
+
+            [IMAGE]
+
+            So is that it?
+
+            Basically yeah! It turns out that the cubic honeycomb exists in higher dimensions which
+            I might look at later but other than that we're done.
+
+            Or are we?
+
+            We haven't even talked at the other shapes from the homepage! Before we talk about them we need to know
+            a bit about different geometries
+
+            Euclidean Geometry
+
+            So far we've only looked at Euclidean space. This is the world that we are used to in day-to-day life
+            and can be characterised by the fact that we can measure distances with Pythagorus' theorem
+
+            A^2 + B^2 = C^2
+
+            This formula only works in 2d but can be easily extended to as many dimensions as we want!
+
+            Suppoose we have two points in Nd space: P_1 = (x1, x2, ..., xn), P_2 = (y1, y2, ..., yn).
+            Then the distance between them is given by
+
+            |P_1P_2| = sqrt()
+
+            Once we have a way of measuring distances then we can also work out angles which is done
+            through the cosine formula.
+
+            When we give ourselves a way of measuring distances we call it a metric.
+            Technically it's the other way around - given a metric we get a way of calculating distances.
+
+            To find the metric we take the our distance function and look at the coefficients:
+
+            ()^2 + ()^2 + ()^2 + ()^2 + ()^2
+            |
+            |
+            (1,0,0,0)
+
+            It also works the other way around too! Knowing the values in the metric allows us to find
+            the metric.
+
+            Armed with this information we can now call Nd Euclidean space R^N where R^N stands for
+            all the vector (x1, x2, ... xN) where the xi are all real numbers and the method of
+            calculating distances uses the metric (1000 0100 0010 0001).
+
+            What happens when we change the metric (method of calculating distances)?
+
+            It turns out that there are two really important geometries that arise from different metrics!
+
+            Spherical Geometry
+
+            This geometry is probably the second most easy to visualise after the Euclidean one.
+            Why? Because we live on a sphere! There are also a lot of examples of spheres in our
+            world - balls, oranges etc meaning that this geometry is not particularly abstract/hard
+            to visualise at least for small dimensions.
+
+            So how do we descibe it mathematically?
+
+            The nD sphere is the set of points that are a distance of 1 from the origin in R^N+1
+            It can be described by the equation: x0^2 + ... + xn^2 = 1. The metric tensor is given by
+            (1000 ...)
+            and the distance phi between two points on the sphere P_1 = (x0, x1, x2, ..., xn),
+            P_2 = (y0, y1, y2, ..., yn) is given by:
+
+            cos(phi) = <P_1, P_2> = x0y0 + ..... xnyn
+
+                Hyperbolic Geometry
+
+                On the flip side there is another
+        </div>
+
+    </body>
+
+</html>

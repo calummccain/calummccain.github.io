@@ -1,0 +1,208 @@
+<canvas width="800" height="400"></canvas>
+
+<script type="module">
+
+    import * as DATA from "../js/data/hyperbolic/35n.js";
+    import * as HF from "../js/maths-functions/hyperbolic-functions.js";
+    import * as VF from "../js/maths-functions/vector-functions.js";
+
+    let canvas = document.querySelector("canvas");
+    let context = canvas.getContext("2d");
+
+    const camera = 3;
+    const plane = 2;
+    const scale = 700;
+    var poinVert = [];
+    var hypPoints = [];
+    var lines = [];
+    var t = 0;
+    var norms = [];
+    var lines = {};
+
+    getHypPoints();
+    makeLineDict();
+    startAndEnd();
+    makeEdges(1);
+
+    console.log(lines);
+
+    function getHypPoints() {
+        DATA.vertices.forEach((vert) => {
+            const poin = DATA.f(3, vert);
+            hypPoints.push(poin);
+        })
+    }
+
+    function makeLineDict() {
+        for (var i = 0; i < DATA.lines.length; i++) {
+            lines[i.toString()] = { "vertices": DATA.lines[i] }
+        }
+    }
+
+    function startAndEnd() {
+        for (var line in lines) {
+            lines[line]["poinEndPoints"] = [
+                HF.hyperboloidToPoincare(hypPoints[lines[line]["vertices"][0]]),
+                HF.hyperboloidToPoincare(hypPoints[lines[line]["vertices"][1]])
+            ];
+            lines[line]["hypEndPoints"] = [
+                hypPoints[lines[line]["vertices"][0]],
+                hypPoints[lines[line]["vertices"][1]]
+            ]
+        }
+    }
+
+    function makeEdges(iMax) {
+
+        for (var line in lines) {
+            var i = 0;
+            var hypVerts = [lines[line]["hypEndPoints"][0], lines[line]["hypEndPoints"][1]];
+
+            while (i < iMax) {
+                var newHypVerts = [];
+                for (var j = 0; j < hypVerts.length - 1; j++) {
+                    newHypVerts.push(hypVerts[j]);
+                    var sum = VF.vectorSum(hypVerts[j], hypVerts[j + 1]);
+                    newHypVerts.push(VF.vectorScale(sum, 1 / Math.sqrt(HF.hyperbolicNorm(sum))));
+                }
+                newHypVerts.push(hypVerts[hypVerts.length - 1]);
+                hypVerts = newHypVerts;
+                i++;
+            }
+            var poinVerts = [];
+            hypVerts.forEach((vert) => { poinVerts.push(HF.hyperboloidToPoincare(vert)) })
+            lines[line]["poinGeodesic"] = poinVerts;
+        }
+    }
+
+    function rayTriangleIntersect(origin, direction, v1, v2) {
+
+        const dir = VF.vectorScale(direction, 1 / VF.norm(direction));
+        const eps = 1e-2;
+        const h = VF.vectorCross(dir, v2);
+        const a = VF.vectorDot(v1, h);
+
+        if (Math.abs(a) < eps) {
+
+            return false;
+        
+        }
+
+        const f = 1 / a;
+        const u = f * VF.vectorDot(origin, h);
+        
+        if (u < eps || u > 1 - eps) {
+            
+            return false;
+        
+        }
+
+        const q = VF.vectorCross(origin, v1);
+        const v = f * VF.vectorDot(dir, q);
+
+        if ((v < eps) || (u + v > 1 - eps)) {
+
+            return false;
+
+        }
+
+        const t = f * VF.vectorDot(v2, q);
+
+        if (t > eps) {
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+
+    function isPointVisible(cameraPos, targetPos, face) {
+
+        const dir = VF.vectorDiff(targetPos, cameraPos);
+        var vis = true;
+
+        for (var line in lines) {
+
+                var geodesic = lines[line]["poinGeodesic"];
+
+                for (var i = 0; i < geodesic.length - 1; i++) {
+            
+                    vis *= !(rayTriangleIntersect(cameraPos, dir, geodesic[i], geodesic[i + 1]));
+            
+                }
+        
+        }
+        
+        return vis;
+    
+    }
+
+
+    for (var line in lines) {
+        var visibleVector = [];
+        for (var i = 0; i < lines[line]["poinGeodesic"].length; i++) {
+            visibleVector.push(isPointVisible([0, 0, camera], lines[line]["poinGeodesic"][i], line));
+        }
+        lines[line]["visible"] = visibleVector;
+    }
+
+
+    window.requestAnimationFrame(draw);
+
+    
+    function drawLine(edge, can, visible) {
+        if (edge.length > 0) {
+            for (var i = 0; i < edge.length - 1; i++) {
+                if (visible[i] && visible[i + 1]) {
+                    can.strokeStyle = '#000000';
+                    can.beginPath();
+                    can.moveTo(edge[i][0], edge[i][1]);
+                    can.lineWidth = 3;
+                    can.lineTo(edge[i + 1][0], edge[i + 1][1]);
+                    can.stroke();
+                } else {
+                    // can.strokeStyle = '#ff0000';
+                    // can.beginPath();
+                    // can.moveTo(edge[i][0], edge[i][1]);
+                    // can.lineWidth = 3;
+                    // can.lineTo(edge[i + 1][0], edge[i + 1][1]);
+                    // can.stroke();
+                }
+            }
+        }
+    }
+
+
+    function draw() {
+
+        context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+
+        var sin = Math.sin(2 * Math.PI * t / 800);
+        var cos = Math.cos(2 * Math.PI * t / 800);
+
+        for (var line in lines) {
+            var edge = lines[line]["poinGeodesic"];
+            var rotateAndProject = [];
+            edge.forEach((vert) => {
+                var xr = vert[0];
+                var yr = vert[1] * cos - vert[2] * sin;
+                var zr = vert[1] * sin + vert[2] * cos;
+                if (zr >= -1) {
+                    var xScale = xr * (camera - plane) / (camera - zr);
+                    var yScale = yr * (camera - plane) / (camera - zr);
+                    var x = scale * xScale + (canvas.width / 2);
+                    var y = scale * yScale + (canvas.height / 2);
+                    rotateAndProject.push([x, y]);
+                }
+            })
+            drawLine(rotateAndProject, context, lines[line]["visible"]);
+        }
+        t += 1
+        poinVert = [];
+        window.requestAnimationFrame(draw);
+    }
+
+</script>
