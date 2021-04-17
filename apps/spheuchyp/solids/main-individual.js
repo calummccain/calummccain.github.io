@@ -1,5 +1,5 @@
-import * as THREE from "../three-bits/three.module.js";
-import { OrbitControls } from "../three-bits/orbit-controls.js";
+import * as THREE from "../../common/js/three-bits/three.module.js";
+import { OrbitControls } from "../common/js/three-bits/orbit-controls.js";
 import { objectMaker } from "../common/js/object-maker.js";
 
 window.onload = main;
