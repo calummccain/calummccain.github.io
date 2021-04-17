@@ -1,4 +1,4 @@
-import * as THREE from "../three-bits/three.module.js";
+import * as THREE from "../../../../common/js/three-bits/three.module.js";
 import { sphericalFace } from "../faces/spherical-faces.js";
 import * as SF from "../maths-functions/spherical-functions.js";
 import * as VF from "../maths-functions/vector-functions.js";

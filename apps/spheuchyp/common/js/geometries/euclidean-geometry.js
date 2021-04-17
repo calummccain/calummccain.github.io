@@ -1,4 +1,4 @@
-import * as THREE from "../three-bits/three.module.js";
+import * as THREE from "../../../../common/js/three-bits/three.module.js";
 import { euclideanFace } from "../faces/euclidean-faces.js";
 import * as VF from "../maths-functions/vector-functions.js";
 import { matrixDict } from "../data/matrix-dictionary.js";
