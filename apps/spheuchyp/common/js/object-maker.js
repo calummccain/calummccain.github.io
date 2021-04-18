@@ -1,16 +1,16 @@
 import * as THREE from "../../../common/js/three-bits/three.module.js";
-import * as GM from "../geometries/geometry-maker.js";
-import * as EM from "../main/edge-maker.js";
+import * as GM from "./geometries/geometry-maker.js";
+import * as EM from "./edge-maker.js";
 
-import { tetrahedronData } from "../data/33n.js";
-import { octahedronData } from "../data/34n.js";
-import { icosahedronData } from "../data/35n.js";
-import { cubeData } from "../data/43n.js";
-import { dodecahedronData } from "../data/53n.js";
-import { hexagonData } from "../data/63n.js";
-import { squareData } from "../data/44n.js";
-import { triangleData } from "../data/36n.js";
-import { pqrData } from "../data/pqr.js";
+import { tetrahedronData } from "./data/33n.js";
+import { octahedronData } from "./data/34n.js";
+import { icosahedronData } from "./data/35n.js";
+import { cubeData } from "./data/43n.js";
+import { dodecahedronData } from "./data/53n.js";
+import { hexagonData } from "./data/63n.js";
+import { squareData } from "./data/44n.js";
+import { triangleData } from "./data/36n.js";
+import { pqrData } from "./data/pqr.js";
 
 const geom = {
     "{3,3}": tetrahedronData,

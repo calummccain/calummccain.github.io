@@ -1,9 +1,9 @@
 import * as THREE from "../../../common/js/three-bits/three.module.js";
-import * as HF from "../maths-functions/hyperbolic-functions.js";
-import * as SF from "../maths-functions/spherical-functions.js";
-import * as VF from "../maths-functions/vector-functions.js";
-import * as RF from "../maths-functions/rotation-functions.js";
-import { matrixDict } from "../data/matrix-dictionary.js";
+import * as HF from "./maths-functions/hyperbolic-functions.js";
+import * as SF from "./maths-functions/spherical-functions.js";
+import * as VF from "./maths-functions/vector-functions.js";
+import * as RF from "./maths-functions/rotation-functions.js";
+import { matrixDict } from "./data/matrix-dictionary.js";
 
 const eps = 1e-4;
 
