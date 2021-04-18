@@ -1,6 +1,6 @@
-import * as THREE from "../three-bits/three.module.js";
-import { objectMaker } from "../main/object-maker.js";
-import { MapControls } from "../three-bits/orbit-controls.js";
+import * as THREE from "../../common/js/three-bits/three.module.js";
+import { objectMaker } from "../common/js/object-maker.js";
+import { MapControls } from "../../common/js/three-bits/orbit-controls.js";
 
 const data = [
     [
