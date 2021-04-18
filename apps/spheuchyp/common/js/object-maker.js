@@ -12,18 +12,18 @@ import { squareData } from "./data/44n.js";
 import { triangleData } from "./data/36n.js";
 import { pqrData } from "./data/pqr.js";
 
-const geom = {
-    "{3,3}": tetrahedronData,
-    "{3,4}": octahedronData,
-    "{3,5}": icosahedronData,
-    "{3,6}": triangleData,
-    "{4,3}": cubeData,
-    "{4,4}": squareData,
-    "{5,3}": dodecahedronData,
-    "{6,3}": hexagonData
-};
-
 function objectMaker(parameters) {
+
+    const geom = {
+        "{3,3}": tetrahedronData,
+        "{3,4}": octahedronData,
+        "{3,5}": icosahedronData,
+        "{3,6}": (r) => triangleData(parameters.numFaces, r),
+        "{4,3}": cubeData,
+        "{4,4}": (r) => squareData(parameters.numFaces, r),
+        "{5,3}": dodecahedronData,
+        "{6,3}": (r) => hexagonData(parameters.numFaces, r),
+    };
 
     const position = parameters.position;
 
@@ -31,7 +31,7 @@ function objectMaker(parameters) {
 
     const name = "{" + p + "," + q + "," + r + "}";
 
-    const data = ((p - 2) * (q - 2) > 4) ? pqrData(p, q, r) : geom["{" + p + "," + q + "}"](r);
+    const data = ((p - 2) * (q - 2) > 4) ? pqrData(p, q, r, parameters.numFaces) : geom["{" + p + "," + q + "}"](r);
 
     if (parameters.model === "poincare" || parameters.model === "") {
 
@@ -42,10 +42,11 @@ function objectMaker(parameters) {
         if (parameters.faceMode) {
 
             var faceGroup = new THREE.Group();
+            var faceMesh;
 
             for (var j = 0; j < data.numFaces; j++) {
 
-                var faceMesh = new THREE.Mesh(
+                faceMesh = new THREE.Mesh(
                     shapeGeometry[j],
                     new THREE.MeshLambertMaterial({
                         color: new THREE.Color(parameters.colour),

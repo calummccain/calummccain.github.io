@@ -1,14 +1,14 @@
-// Order n square
+// Order r square
 
 import { boundaries } from "./geometry-decider.js";
 import * as VF from "../maths-functions/vector-functions.js";
 import * as HF from "../maths-functions/hyperbolic-functions.js";
 import * as GT from "../maths-functions/generate-tesselations.js";
 
-const squareData = (n) => {
+const squareData = (r, n) => {
 
-    const metric = boundaries(n, 2, 4);
-    const cos = Math.cos(Math.PI / n) ** 2;
+    const metric = boundaries(r, 2, 4);
+    const cos = Math.cos(Math.PI / r) ** 2;
     const den = Math.sqrt(Math.abs(1 - 2 * cos));
 
     const V = [1, 0, 1, 0];
@@ -27,7 +27,7 @@ const squareData = (n) => {
     // CEV
     // ()
     const cmat =
-        (n == 4) ? (v) => [
+        (r == 4) ? (v) => [
             2 * v[0] - v[1] / 2 - v[2] - v[3],
             2 * v[0] - 2 * v[2] - 2 * v[3],
             v[0] - v[1] / 2 - v[3],
@@ -46,7 +46,7 @@ const squareData = (n) => {
     const emat = (v) => v;
 
     const fmat =
-        (n == 4) ? (v) => [
+        (r == 4) ? (v) => [
             v[0],
             v[1] / 2,
             v[2],
@@ -74,7 +74,7 @@ const squareData = (n) => {
 
     const matrixDict = (letter, v) => GT.matrixDict(letter, amat, bmat, cmat, dmat, emat, fmat, v);
 
-    const [f, fNames] = GT.makeFaces([(n == 4) ? 1 : den, 0, 0, 0], 500, 4, matrixDict);
+    const [f, fNames] = GT.makeFaces([(r == 4) ? 1 : den, 0, 0, 0], n, 4, matrixDict);
     const v = GT.makeVertices(initialVerts, matrixDict, fNames);
     const e = GT.makeEdges(initialEdges, matrixDict, fNames);
     var faceData = GT.generateFaceData(Math.abs(1 / (1 - 2 * cos)), 4, metric, f, v, fmat);

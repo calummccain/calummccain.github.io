@@ -5,10 +5,10 @@ import * as VF from "../maths-functions/vector-functions.js";
 import * as HF from "../maths-functions/hyperbolic-functions.js";
 import * as GT from "../maths-functions/generate-tesselations.js";
 
-const triangleData = (n) => {
+const triangleData = (r, n) => {
 
-    const metric = boundaries(n, 2, 3);
-    const cos = Math.cos(Math.PI / n) ** 2;
+    const metric = boundaries(r, 2, 3);
+    const cos = Math.cos(Math.PI / r) ** 2;
     const den = Math.sqrt(Math.abs(1 - 4 * c));
 
     const V = [1, 0, 2, 0];
@@ -27,7 +27,7 @@ const triangleData = (n) => {
     // CEV
     // (2 cn ** 2, 2, 1, 1)
     const cmat = (v) => [
-        (1 + 2 * cos) * v[0] - 2 * (cos ** 2) * v[1] - cos * v[2] - 3 * cos * v[3],
+        (1 + 2 * cos) * v[0] - 2 * (cos * cos) * v[1] - cos * v[2] - 3 * cos * v[3],
         2 * v[0] + (1 - 2 * cos) * v[1] - v[2] - 3 * v[3],
         v[0] - cos * v[1] + v[2] / 2 - 3 * v[3] / 2,
         v[0] - cos * v[1] - v[2] / 2 - v[3] / 2
@@ -40,7 +40,7 @@ const triangleData = (n) => {
     const emat = (v) => v;
 
     const fmat =
-        (n == 3) ? (v) => [
+        (r == 3) ? (v) => [
             v[0],
             v[1] / 4,
             v[2] / 2,
@@ -66,7 +66,7 @@ const triangleData = (n) => {
 
     const matrixDict = (letter, v) => GT.matrixDict(letter, amat, bmat, cmat, dmat, emat, fmat, v);
 
-    const [f, fNames] = GT.makeFaces([(n == 3) ? 1 : den, 0, 0, 0], 500, 3, matrixDict);
+    const [f, fNames] = GT.makeFaces([(r == 3) ? 1 : den, 0, 0, 0], n, 3, matrixDict);
     const v = GT.makeVertices(initialVerts, matrixDict, fNames);
     const e = GT.makeEdges(initialEdges, matrixDict, fNames);
     var faceData = GT.generateFaceData(Math.abs(1 / (1 - 4 * cos)), 3, metric, f, v, fmat);

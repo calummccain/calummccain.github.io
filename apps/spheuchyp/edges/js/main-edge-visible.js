@@ -48,7 +48,8 @@ function main() {
         invisibleLines: invisible,
         transform: "",
         position: [0, 0, 0],
-        cells: [""]
+        cells: [""],
+        numFaces: 200
     }
 
     geom = objectMaker(data);
