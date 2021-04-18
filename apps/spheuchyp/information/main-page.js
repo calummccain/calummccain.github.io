@@ -35,7 +35,7 @@ const data = [
 
     ],
     [
-        { p: 5, q: 3, r: 7, model: "poincare", refinement: 15, colour: 0x127548, position: [0, 0, 0], transform: "", faceMode: false, intersection: true, cells: [""] }
+        { p: 5, q: 3, r: 4, model: "uhp", refinement: 50, colour: 0x127548, position: [0, 0, 0], transform: "", faceMode: false, intersection: true, cells: [""] }
     ]
 ];
 
@@ -65,12 +65,13 @@ function main() {
         scene.userData.camera = camera;
 
         data[n].forEach((params) => {
+
             var obj = objectMaker(params);
             objects.push(obj);
 
             if (params.model === "uhp") {
 
-                scene.add(obj(0, 0, 0, camera.position.toArray()));
+                scene.add(obj(0, 0, 0, 0, 0, 0, camera.position.toArray()));
 
             } else {
 
@@ -150,7 +151,7 @@ function main() {
 
                 } else {
 
-                    // scene.children[0] = obj(0, 0, 0, camera.position.toArray());
+                    scene.children[0] = obj(0, 0, 0, 0, 0, 0, camera.position.toArray());
 
                 }
 
