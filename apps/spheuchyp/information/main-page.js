@@ -35,7 +35,7 @@ const data = [
 
     ],
     [
-        { p: 5, q: 3, r: 7, model: "uhp", refinement: 15, colour: 0x127548, position: [0, 0, 0], transform: "", faceMode: false, intersection: true, cells: [""] }
+        { p: 5, q: 3, r: 7, model: "poincare", refinement: 15, colour: 0x127548, position: [0, 0, 0], transform: "", faceMode: false, intersection: true, cells: [""] }
     ]
 ];
 
