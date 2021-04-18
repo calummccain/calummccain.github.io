@@ -1,14 +1,14 @@
-// Order n hexagonal
+// Order r hexagonal
 
 import { boundaries } from "./geometry-decider.js";
 import * as VF from "../maths-functions/vector-functions.js";
 import * as HF from "../maths-functions/hyperbolic-functions.js";
 import * as GT from "../maths-functions/generate-tesselations.js";
 
-const hexagonData = (n) => {
+const hexagonData = (r, n) => {
 
-    const metric = boundaries(n, 2, 6);
-    const c = Math.cos(Math.PI / n) ** 2;
+    const metric = boundaries(r, 2, 6);
+    const c = Math.cos(Math.PI / r) ** 2;
     const den = Math.sqrt(Math.abs(1 - 4 * c / 3));
 
     // const V = [1, 0, 1, 0];
@@ -27,7 +27,7 @@ const hexagonData = (n) => {
     // CEV
     // (2 cos^2, 2 * cos^2, 3, 1)
     const cmat = (v) => [
-        (1 + 2 * c) * v[0] - 2 * (c ** 2) * v[1] - c * v[2] - c * v[3],
+        (1 + 2 * c) * v[0] - 2 * c * c * v[1] - c * v[2] - c * v[3],
         2 * v[0] + (1 - 2 * c) * v[1] - v[2] - v[3],
         3 * v[0] - 3 * c * v[1] - v[2] / 2 - 3 * v[3] / 2,
         v[0] - c * v[1] - v[2] / 2 + v[3] / 2
@@ -40,7 +40,7 @@ const hexagonData = (n) => {
     const emat = (v) => v;
 
     const fmat =
-        (n == 6) ? (v) => [
+        (r == 6) ? (v) => [
             v[0],
             3 * v[1] / 4,
             v[2] / 2,
@@ -72,7 +72,7 @@ const hexagonData = (n) => {
 
     const matrixDict = (letter, v) => GT.matrixDict(letter, amat, bmat, cmat, dmat, emat, fmat, v);
 
-    const [f, fNames] = GT.makeFaces([(n == 6) ? 1 : den, 0, 0, 0], 500, 6, matrixDict);
+    const [f, fNames] = GT.makeFaces([(r == 6) ? 1 : den, 0, 0, 0], n, 6, matrixDict);
     const v = GT.makeVertices(initialVerts, matrixDict, fNames);
     const e = GT.makeEdges(initialEdges, matrixDict, fNames);
     var faceData = GT.generateFaceData(Math.abs(1 / (1 - 4 * c / 3)), 6, metric, f, v, fmat);

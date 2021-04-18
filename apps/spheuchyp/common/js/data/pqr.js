@@ -4,7 +4,7 @@ import * as VF from "../maths-functions/vector-functions.js";
 import * as HF from "../maths-functions/hyperbolic-functions.js";
 import * as GT from "../maths-functions/generate-tesselations.js";
 
-const pqrData = (p, q, r) => {
+const pqrData = (p, q, r, n) => {
 
     const cr = (i) => Math.cos(Math.PI * i / r);
     const sr = (i) => Math.sin(Math.PI * i / r);
@@ -97,7 +97,7 @@ const pqrData = (p, q, r) => {
 
     const matrixDict = (letter, v) => GT.matrixDict(letter, amat, bmat, cmat, dmat, emat, fmat, v);
 
-    const [f, fNames] = GT.makeFaces(F, 200, p, matrixDict);
+    const [f, fNames] = GT.makeFaces(F, n, p, matrixDict);
     const v = GT.makeVertices(initialVerts, matrixDict, fNames);
     const e = GT.makeEdges(initialEdges, matrixDict, fNames);
     var faceData = GT.generateFaceData(Math.abs(cp(1) ** 2 * cq(1) ** 2 / (sp(1) ** 2 * (sr(1) ** 2 - cq(1) ** 2))), p, metric, f, v, fmat);
