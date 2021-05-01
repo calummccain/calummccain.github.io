@@ -3,15 +3,15 @@
 import { boundaries } from "./geometry-decider.js";
 import { rt2 } from "./constants.js";
 
-const octahedronData = (n) => {
+const octahedronTruncData = (n) => {
 
     const cos = Math.cos(Math.PI / n) ** 2;
     const tan = 1 / cos - 1;
     const cot = 1 / tan;
-    const cot2 = Math.sqrt(Math.abs((1 - 2 * cot) / (1 - cot)));
+    const cot2 = Math.sqrt(Math.abs(1 - 2 * cot));
     const cot3 = Math.sqrt(Math.abs(1 - cot));
 
-    const metric = boundaries(n, Math.PI / Math.atan(rt2), 4);
+    const metric = boundaries(n, Math.PI / Math.atan(rt2), Infinity);
 
     const d =
         (n == 3) ? (v) => [
@@ -31,53 +31,41 @@ const octahedronData = (n) => {
             2 * cos * v[0] - 2 * cos * v[1] - 2 * cos * v[2] + (1 - 2 * cos) * v[3]
         ];
 
-    const f =
-        (n == 3) ? (v) => [
-            v[0] / rt2,
-            v[1] / rt2,
-            v[2] / rt2,
-            v[3] / rt2
-        ] : (n == 4) ? (v) => [
-            v[0],
-            v[1],
-            v[2],
-            v[3]
-        ] : (v) => [
-            Math.sqrt(Math.abs(cot / (1 - cot))) * v[0],
-            Math.sqrt(Math.abs((1 - 2 * cot) / (1 - cot))) * v[1],
-            Math.sqrt(Math.abs((1 - 2 * cot) / (1 - cot))) * v[2],
-            Math.sqrt(Math.abs((1 - 2 * cot) / (1 - cot))) * v[3],
-        ];
+    const f = (v) => [
+        Math.sqrt(Math.abs(2 * cot)) * v[0],
+        Math.sqrt(Math.abs(cot - 1 / 2)) * v[1],
+        Math.sqrt(Math.abs(cot - 1 / 2)) * v[2],
+        Math.sqrt(Math.abs(cot - 1 / 2)) * v[3],
+    ];
 
     return {
 
         vertices: [
-            [1, 1, 0, 0],
-            [1, -1, 0, 0],
-            [1, 0, 1, 0],
-            [1, 0, -1, 0],
-            [1, 0, 0, 1],
-            [1, 0, 0, -1]
+            [1, 1, 1, 0], [1, 1, 0, 1], [1, 0, 1, 1],
+            [1, 1, -1, 0], [1, -1, 0, 1], [1, 0, 1, -1],
+            [1, -1, 1, 0], [1, 1, 0, -1], [1, 0, -1, 1],
+            [1, -1, -1, 0], [1, -1, 0, -1], [1, 0, -1, -1]
         ],
 
         edges: [
-            [0, 2], [0, 3], [0, 4], [0, 5],
-            [1, 2], [1, 3], [1, 4], [1, 5],
-            [2, 4], [4, 3], [3, 5], [5, 2]
+            [0, 1], [1, 2], [2, 0], [0, 5], [5, 7], [7, 0],
+            [3, 7], [7, 11], [11, 3], [1, 3], [3, 8], [8, 1],
+            [4, 8], [4, 9], [8, 9], [2, 4], [2, 6], [4, 6],
+            [5, 6], [5, 10], [6, 10], [9, 10], [9, 11], [10, 11]
         ],
 
         faces: [
-            [0, 2, 4], [0, 5, 2],
-            [0, 4, 3], [0, 3, 5],
-            [1, 4, 2], [1, 2, 5],
-            [1, 3, 4], [1, 5, 3]
+            [0, 1, 2], [0, 5, 7], [3, 7, 11], [1, 3, 8],
+            [4, 8, 9], [2, 4, 6], [5, 6, 10], [9, 10, 11],
+            [0, 5, 6, 2], [1, 2, 4, 8], [0, 1, 3, 7],
+            [3, 8, 9, 11], [5, 7, 11, 10], [4, 6, 10, 9]
         ],
 
-        numVertices: 6,
+        numVertices: 12,
 
-        numEdges: 12,
+        numEdges: 24,
 
-        numFaces: 8,
+        numFaces: 14,
 
         // CFE
         // (0, 1, -1, 0)
@@ -100,7 +88,7 @@ const octahedronData = (n) => {
 
         f: f,
 
-        faceReflections: ["", "c", "bc", "cbc", "abc", "cabc", "bcabc", "cbcabc"],
+        faceReflections: [""],
 
         outerReflection: "d",
 
@@ -126,4 +114,4 @@ const octahedronData = (n) => {
 
 }
 
-export { octahedronData };
+export { octahedronTruncData };

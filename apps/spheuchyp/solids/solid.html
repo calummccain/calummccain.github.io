@@ -5,38 +5,34 @@
 
         <meta charset="utf-8">
 
-        <link rel="stylesheet" href="../../../../css/edge-visible.css">
+        <link rel="stylesheet" href="./solid.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script type="text/javascript" async
             src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
             </script>
-        <title>2 camera test</title>
+        <title>solid</title>
     </head>
 
     <body>
 
-        <div id="c"></div>
+        <div id="canvas"></div>
 
         <div id="menu">
 
             <div class="slidecontainer">
-                <input type="range" min="3" max="10" value="3" class="slider" id="myRangep">
+                <input type="range" min="3" max="10" value="5" class="slider" id="myRangep">
                 p
             </div>
 
             <div class="slidecontainer">
-                <input type="range" min="3" max="10" value="7" class="slider" id="myRangeq">
+                <input type="range" min="3" max="10" value="3" class="slider" id="myRangeq">
                 q
             </div>
 
             <div class="slidecontainer">
-                <input type="range" min="4" max="20" value="6" class="slider" id="myRanger">
+                <input type="range" min="3" max="10" value="3" class="slider" id="myRanger">
                 r
             </div>
-
-            <button id="visibleLines">visible</button>
-
-            <button id="intersection">intersection</button>
 
             <div class="slidecontainer">
                 <input type="range" min="0" max="100" value="0" class="slider" id="myRangex">
@@ -51,24 +47,17 @@
                 z
             </div>
 
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="0" class="slider" id="myRangeu">
-                u
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="0" class="slider" id="myRangev">
-                v
-            </div>
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="0" class="slider" id="myRangew">
-                w
-            </div>
+            <button id="list">list</button>
 
-            <button id="svg">svg</button>
+            <button id="add">add</button>
+
+            <button id="remove">remove</button>
+
+            <button id="move">move</button>
 
         </div>
 
-        <script type="module" src="../js/main-edge-visible.js"></script>
+        <script type="module" src="./solid.js"></script>
 
     </body>
 

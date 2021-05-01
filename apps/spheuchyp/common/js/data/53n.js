@@ -102,8 +102,6 @@ const dodecahedronData = (n) => {
 
         numFaces: 12,
 
-        numSides: 5,
-
         // CFE
         // (0, 0, 1, 0)
         a: (v) => [v[0], v[1], -v[2], v[3]],

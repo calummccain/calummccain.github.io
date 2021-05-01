@@ -119,8 +119,6 @@ const pqrData = (p, q, r, n) => {
 
         numFaces: fNames.length,
 
-        numSides: p,
-
         a: amat,
 
         b: bmat,

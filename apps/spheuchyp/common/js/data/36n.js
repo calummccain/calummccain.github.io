@@ -9,7 +9,7 @@ const triangleData = (r, n) => {
 
     const metric = boundaries(r, 2, 3);
     const cos = Math.cos(Math.PI / r) ** 2;
-    const den = Math.sqrt(Math.abs(1 - 4 * c));
+    const den = Math.sqrt(Math.abs(1 - 4 * cos));
 
     const V = [1, 0, 2, 0];
     const E = [2, 0, 1, 1];
@@ -87,8 +87,6 @@ const triangleData = (r, n) => {
         numEdges: edgeData.length,
 
         numFaces: faceData.length,
-
-        numSides: 3,
 
         a: amat,
 

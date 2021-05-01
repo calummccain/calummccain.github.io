@@ -2,12 +2,31 @@ import * as VF from "./vector-functions.js";
 
 const tol = 1e-4;
 
-// hyperboloid inner product
+// ========================================================
+// Hyperboloid model inner product
+// 
+// Inputs: x, y
+// Output: <x,y> with the lorentzian metric tensor
+//
+// Change history:
+//     ??/??/?? Initial commit
+//=========================================================
+
 function hyperboloidInnerProduct(x, y) {
 
     return x[0] * y[0] - x[1] * y[1] - x[2] * y[2] - x[3] * y[3];
 
 }
+
+// ========================================================
+// Hyperboloid model norm
+// 
+// Inputs: x
+// Output: <x,x> with the lorentzian metric tensor
+//
+// Change history:
+//     ??/??/?? Initial commit
+//=========================================================
 
 function hyperbolicNorm(x) {
 
@@ -15,24 +34,33 @@ function hyperbolicNorm(x) {
 
 }
 
-// stereographic projection from the hyperboloid model to the poincare model 
-//                 (w, x, y, z) ===> (x / (1 + w), y / (1 + w), z / (1 + w))
-// if on lightcone (w, x, y, z) ===> (x / w, y / w, z / w)
-function hyperboloidToPoincare(point) {
+// ========================================================
+// Stereographic projection from hyperboloid model to
+// the poincare model
+//
+// Inputs: x
+// Output: If x is on/near lightcone (x1/x0, x2/x0, x3/x0)
+//         If <x,x> > 0 (x1/(1+x0), x2/(1+x0), x3/(1+x0))
+//
+// Change history:
+//     ??/??/?? Initial commit
+//=========================================================
 
-    if (Math.abs(hyperbolicNorm(point)) < tol) {
+function hyperboloidToPoincare(x) {
 
-        const scale = 1 / point[0];
-        return [point[1] * scale, point[2] * scale, point[3] * scale];
+    if (Math.abs(hyperbolicNorm(x)) < tol) {
 
-    } else if (hyperbolicNorm(point) > tol) {
+        const scale = 1 / x[0];
+        return [x[1] * scale, x[2] * scale, x[3] * scale];
 
-        const scale = 1 / (1 + point[0]);
-        return [point[1] * scale, point[2] * scale, point[3] * scale];
+    } else if (hyperbolicNorm(x) >= tol) {
+
+        const scale = 1 / (1 + x[0]);
+        return [x[1] * scale, x[2] * scale, x[3] * scale];
 
     } else {
 
-        const initialVect = [point[1], point[2], point[3]];
+        const initialVect = [x[1], x[2], x[3]];
         const l = VF.norm(initialVect);
 
         return VF.vectorScale(initialVect, 1 / l);
@@ -41,18 +69,37 @@ function hyperboloidToPoincare(point) {
 
 }
 
-// stereographic projection from the hyperboloid model to the klein model (use for ideal points too)
-// (w, x, y, z) ===> (x / w, y / w, z / w)
-function hyperboloidToKlein(point) {
+// ========================================================
+// Stereographic projection from hyperboloid model to
+// the klein model
+//
+// Inputs: x
+// Output: (x1/x0, x2/x0, x3/x0)
+//
+// Change history:
+//     ??/??/?? Initial commit
+//=========================================================
 
-    return [point[1] / point[0], point[2] / point[0], point[3] / point[0]];
+function hyperboloidToKlein(x) {
+
+    return [x[1] / x[0], x[2] / x[0], x[3] / x[0]];
 
 }
 
-// 'Cayley transform' from poincare to UHP
-// (x, y, z) ===> (2 * x / (x ** 2 + y ** 2 + (1 - z) ** 2), 
-//                 2 * y / (x ** 2 + y ** 2 + (1 - z) ** 2), 
-//                 (1 - x ** 2 - y ** 2 - z ** 2) / (x ** 2 + y ** 2 + (1 - z) ** 2))
+// ========================================================
+// Cayley transform from the poincare model to the upper
+// half plane model
+//
+// Inputs: point = (x,y,z)
+// Output: (2 * x / (x ** 2 + y ** 2 + (1 - z) ** 2), 
+//          2 * y / (x ** 2 + y ** 2 + (1 - z) ** 2), 
+//          (1 - x ** 2 - y ** 2 - z ** 2) / 
+//                        (x ** 2 + y ** 2 + (1 - z) ** 2))
+//
+// Change history:
+//     ??/??/?? Initial commit
+//=========================================================
+
 function poincareToUpperHalfPlane(point) {
 
     var x = point[0], y = point[1], z = point[2];
@@ -74,22 +121,51 @@ function poincareToUpperHalfPlane(point) {
 
 }
 
+// ========================================================
+// Cayley transform from the upper half plane model to the
+// poincare model
+//
+// Inputs: point = (x,y,z)
+// Output: (2 * x / (x ** 2 + y ** 2 + (1 + z) ** 2), 
+//          2 * y / (x ** 2 + y ** 2 + (1 + z) ** 2), 
+//          (x ** 2 + y ** 2 + z ** 2 - 1) / 
+//                        (x ** 2 + y ** 2 + (1 + z) ** 2))
+//
+// Change history:
+//     ??/??/?? Initial commit
+//=========================================================
+
 function upperHalfPlaneToPoincare(point) {
 
     const x = point[0], y = point[1], z = point[2];
-    const s = 1 / (x * x + y * y + 1 + 2 * z + z * z);
+    const s = 1 / (x * x + y * y + (1 + z) * (1 + z));
 
     return [2 * x * s, 2 * y * s, (x * x + y * y + z * z - 1) * s];
 
 }
 
-// TODO what if point is ideal ie r = 1 - tol
-function poincareToHyperboloid(point) {
+// ========================================================
+// Cayley transform from the poincare model to the upper
+// half plane model
+//
+// Inputs: x
+// Output: (2 * x / (x ** 2 + y ** 2 + (1 - z) ** 2), 
+//          2 * y / (x ** 2 + y ** 2 + (1 - z) ** 2), 
+//          (1 - x ** 2 - y ** 2 - z ** 2) / 
+//                        (x ** 2 + y ** 2 + (1 - z) ** 2))
+//
+// Change history:
+//     ??/??/?? Initial commit
+//=========================================================
 
-    const r = VF.norm2(point);
+// TODO what if point is ideal ie r = 1 - tol
+
+function poincareToHyperboloid(x) {
+
+    const r = x[0] * x[0] + x[1] * x[1] + x[2] * x[2];
     const denom = 1 / (1 - r);
 
-    return [(1 + r) * denom, 2 * point[0] * denom, 2 * point[1] * denom, 2 * point[2] * denom];
+    return [(1 + r) * denom, 2 * x[0] * denom, 2 * x[1] * denom, 2 * x[2] * denom];
 
 }
 
@@ -108,7 +184,7 @@ function poincareToHyperboloid(point) {
 
 // }
 
-// TODO ideal point again
+//TODO ideal point again
 function kleinToPoincare(point) {
 
     var dist = VF.norm2(point);

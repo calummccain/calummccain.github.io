@@ -94,8 +94,6 @@ const hexagonData = (r, n) => {
 
         numFaces: faceData.length,
 
-        numSides: 6,
-
         a: amat,
 
         b: bmat,

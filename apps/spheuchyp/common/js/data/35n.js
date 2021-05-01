@@ -70,8 +70,6 @@ const icosahedronData = (n) => {
 
         numFaces: 20,
 
-        numSides: 3,
-
         // CFE
         // (0, 1, 0, 0)
         a: (v) => [v[0], -v[1], v[2], v[3]],

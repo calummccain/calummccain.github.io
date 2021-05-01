@@ -96,8 +96,6 @@ const squareData = (r, n) => {
 
         numFaces: faceData.length,
 
-        numSides: 4,
-
         a: amat,
 
         b: bmat,

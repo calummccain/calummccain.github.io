@@ -1,20 +1,17 @@
-import * as THREE from "../../../common/js/three-bits/three.module.js";
-import { OrbitControls } from "../../../common/js/three-bits/orbit-controls.js";
-import { objectMaker } from "../../common/js/object-maker.js";
+import * as THREE from "../../common/js/three-bits/three.module.js";
+import { OrbitControls } from "../../common/js/three-bits/orbit-controls.js";
+import { objectMaker } from "../common/js/object-maker.js";
 
 window.onload = main;
 
 function main() {
 
     var p = 5, q = 3, r = 3;
-    var thetax = 0, thetay = 0, thetaz = 0;
-    var geom;
-    var ghostGeom;
     var k = 0;
     const initialCell = "d";
     var mode = "add";
 
-    const canvas = document.getElementById("c");
+    const canvas = document.getElementById("canvas");
     var rect = canvas.getBoundingClientRect();
 
     var WIDTH = canvas.clientWidth;
@@ -22,6 +19,7 @@ function main() {
 
     var renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(WIDTH, HEIGHT);
+    renderer.shadowMap.enabled = true;
     canvas.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
@@ -33,9 +31,14 @@ function main() {
 
     scene.add(camera);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(1, 0, 0);
-    camera.add(directionalLight);
+    // const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    // directionalLight.position.set(10, 0, 0);
+    // scene.add(directionalLight);
+
+    const pointlight = new THREE.PointLight(0xffffff, 1, 100);
+    pointlight.position.set(10, 0, 0);
+    pointlight.castShadow = true;
+    camera.add(pointlight);
 
     var controls = new OrbitControls(camera, canvas);
     controls.enabled = true;
@@ -59,7 +62,9 @@ function main() {
         transform: initialCell,
         position: [0, 0, 0],
         faceMode: true,
-        numFaces: 50
+        numFaces: 200,
+        shader: "toon",
+        slices: 10
     }
 
     var list = [initialCell];
@@ -74,16 +79,18 @@ function main() {
         position: [0, 0, 0],
         faceMode: false,
         opacity: 0.3,
-        numFaces: 20
+        numFaces: 50,
+        shader: "toon",
+        slices: 10
     }
 
     lineGroup.children = objectMaker(data).children;
 
-    render();
-
     window.addEventListener("resize", onWindowResize, false);
     window.addEventListener("mousemove", onMouseMove, false);
     window.addEventListener("click", onMouseClick, false);
+
+    render();
 
     function onWindowResize() {
 
@@ -267,6 +274,11 @@ function main() {
     document.getElementById("remove").addEventListener("click", function () {
         mode = "remove";
         ghostGroup.children = [];
+    });
+
+    document.getElementById("move").addEventListener("click", function () {
+        mode = "move";
+        // ghostGroup.children = [];
     });
 
     window.addEventListener("touchend", () => {
