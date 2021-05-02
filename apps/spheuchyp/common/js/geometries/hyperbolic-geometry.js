@@ -1,4 +1,4 @@
-import * as THREE from "../../../../common/js/three-bits/three.module.js";
+import * as THREE from "../three-bits/three.module.js";
 import { hyperbolicFace } from "../faces/hyperbolic-faces.js";
 import * as HF from "../maths-functions/hyperbolic-functions.js";
 import * as VF from "../maths-functions/vector-functions.js";
@@ -29,7 +29,7 @@ function hyperbolicGeometry(data, transform, refinement, model) {
         subdividedFaces, subdividedVertices;
         initial = 0;
         faceGeometry = new THREE.Geometry();
-        faceVertices = Array(data.numSides).fill().map(() => initial++);
+        faceVertices = Array(data.faces[i].length).fill().map(() => initial++);
         faceVertices = faceVertices.map((x) => kleinVertices[data.faces[i][x]]);
 
         // kleinFace subdivides the face automatically and returns the vertices and the face indices

@@ -1,5 +1,5 @@
-import * as VF from "./vector-functions.js";
-import * as HF from "./hyperbolic-functions.js";
+import * as VF from "../maths-functions/vector-functions.js";
+import * as HF from "../maths-functions/hyperbolic-functions.js";
 
 const eps = 1e-4;
 

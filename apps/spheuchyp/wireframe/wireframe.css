@@ -29,7 +29,7 @@ body {
     width: 100%;
 }
 
-#canvas{
+#canvas {
     position: fixed;
     width: 80%;
     height: 80%;
@@ -39,12 +39,29 @@ body {
     outline: none;
 }
 
-#canvassvg{
+#canvassvg {
     position: fixed;
     width: 900px;
     height: 900px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    outline: none;
+}
+
+#pqrselector {
+    display: none;
+    transition: all 0.5s ease-out;
+    width: 420px;
+    height: 300px;
+    background-color: #666666;
+}
+
+.cellselector {
+    width: 60px;
+    height: 30px;
+    margin: 5px;
+    float: left;
+    color: #252525;
     outline: none;
 }

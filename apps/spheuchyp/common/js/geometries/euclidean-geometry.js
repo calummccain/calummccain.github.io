@@ -1,4 +1,4 @@
-import * as THREE from "../../../../common/js/three-bits/three.module.js";
+import * as THREE from "../three-bits/three.module.js";
 import { euclideanFace } from "../faces/euclidean-faces.js";
 import * as VF from "../maths-functions/vector-functions.js";
 import { matrixDict } from "../data/matrix-dictionary.js";
@@ -26,7 +26,7 @@ function euclideanGeometry(data, transform) {
 
         faceGeometry = new THREE.Geometry();
         initial = 0;
-        faceVertices = Array(data.numSides).fill().map(() => initial++);
+        faceVertices = Array(data.faces[i].length).fill().map(() => initial++);
         faceVertices = faceVertices.map((x) => properVertices[data.faces[i][x]]);
         faceData = euclideanFace(faceVertices);
 
